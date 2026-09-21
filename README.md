@@ -93,31 +93,36 @@ O sistema deve respeitar as seguintes regras:
 
 ### Aluno
 
-* [ ] Como aluno, quero realizar login no sistema para acessar minhas funcionalidades.
-* [ ] Como aluno, quero consultar as disciplinas disponíveis para o semestre.
-* [ ] Como aluno, quero me matricular em disciplinas de primeira opção.
-* [ ] Como aluno, quero selecionar disciplinas alternativas.
-* [ ] Como aluno, quero cancelar uma matrícula realizada anteriormente.
-* [ ] Como aluno, quero consultar minhas disciplinas matriculadas.
+* [x] Como aluno, quero realizar login no sistema para acessar minhas funcionalidades.
+* [x] Como aluno, quero consultar as disciplinas disponíveis para o semestre.
+* [x] Como aluno, quero me matricular em até 4 disciplinas como primeira opção (obrigatórias).
+* [x] Como aluno, quero me matricular em até 2 disciplinas alternativas (optativas).
+* [x] Como aluno, quero cancelar uma matrícula realizada anteriormente durante o período de matrículas.
+* [x] Como aluno, quero consultar minhas disciplinas matriculadas.
 
 ### Professor
 
-* [ ] Como professor, quero realizar login no sistema para acessar minhas funcionalidades.
-* [ ] Como professor, quero consultar minhas disciplinas.
-* [ ] Como professor, quero consultar os alunos matriculados em uma disciplina.
+* [x] Como professor, quero realizar login no sistema para acessar minhas funcionalidades.
+* [x] Como professor, quero consultar as disciplinas que ministro.
+* [x] Como professor, quero consultar os alunos matriculados em cada uma das minhas disciplinas.
 
 ### Secretaria
 
-* [ ] Como secretário, quero realizar login no sistema.
-* [ ] Como secretário, quero cadastrar e manter informações sobre cursos.
-* [ ] Como secretário, quero cadastrar e manter informações sobre disciplinas.
-* [ ] Como secretário, quero cadastrar e manter informações sobre professores.
-* [ ] Como secretário, quero cadastrar e manter informações sobre alunos.
-* [ ] Como secretário, quero gerar o currículo de um semestre.
+* [x] Como secretário, quero realizar login no sistema.
+* [x] Como secretário, quero cadastrar e manter informações sobre cursos (nome, créditos).
+* [x] Como secretário, quero cadastrar e manter informações sobre disciplinas.
+* [x] Como secretário, quero cadastrar e manter informações sobre professores.
+* [x] Como secretário, quero cadastrar e manter informações sobre alunos.
+* [x] Como secretário, quero gerar o currículo de um semestre contendo as disciplinas.
+
+### Sistema (Regras Automáticas)
+
+* [x] Como sistema, quero cancelar automaticamente as disciplinas que tiverem menos de 3 alunos inscritos ao final do período de matrículas.
+* [x] Como sistema, quero encerrar novas matrículas para uma disciplina assim que ela atingir 60 alunos.
 
 ### Sistema de Cobranças
 
-* [ ] Como sistema de cobranças, quero receber uma notificação quando uma matrícula for realizada para que as disciplinas possam ser cobradas do aluno.
+* [x] Como sistema de cobranças, quero ser notificado após um aluno se matricular em um semestre para que as disciplinas possam ser cobradas do aluno.
 
 ---
 
@@ -127,11 +132,76 @@ A modelagem do sistema será desenvolvida e atualizada ao longo das sprints.
 
 ### Diagrama de Caso de Uso
 
-> Será adicionado durante a Sprint 01.
+![Diagrama de Caso de Uso](./caso-de-uso.drawio.png)
 
 ### Diagrama de Classes
 
-> Será adicionado durante a Sprint 02.
+```mermaid
+classDiagram
+    class Usuario {
+        <<abstract>>
+        #login: String
+        #senha: String
+        +autenticar(login, senha): boolean
+    }
+    
+    class Aluno {
+        -nome: String
+        -matricula: String
+        +matricular(Disciplina, isOptativa): boolean
+        +cancelarMatricula(Disciplina): boolean
+        +consultarDisciplinas(): List~Disciplina~
+    }
+    
+    class Professor {
+        -nome: String
+        +consultarAlunos(Disciplina): List~Aluno~
+        +consultarDisciplinas(): List~Disciplina~
+    }
+    
+    class Secretaria {
+        +gerarCurriculo(semestre: String): Curriculo
+        +manterDisciplina(Disciplina): boolean
+        +manterProfessor(Professor): boolean
+        +manterAluno(Aluno): boolean
+        +manterCurso(Curso): boolean
+    }
+    
+    Usuario <|-- Aluno
+    Usuario <|-- Professor
+    Usuario <|-- Secretaria
+    
+    class Curso {
+        -nome: String
+        -numeroCreditos: int
+        +adicionarDisciplina(Disciplina)
+    }
+    
+    class Disciplina {
+        -nome: String
+        -limiteAlunos: int = 60
+        -minAlunos: int = 3
+        -ativa: boolean
+        +adicionarAluno(Aluno): boolean
+        +removerAluno(Aluno): boolean
+        +verificarStatus()
+    }
+    
+    class Curriculo {
+        -semestre: String
+        +adicionarDisciplina(Disciplina)
+    }
+    
+    class SistemaCobrancaService {
+        +notificarCobranca(Aluno, List~Disciplina~)
+    }
+    
+    Curso "1" *-- "0..*" Disciplina : contem
+    Curriculo "1" o-- "0..*" Disciplina : oferece
+    Disciplina "0..*" -- "1" Professor : ministrada por
+    Disciplina "0..*" o-- "0..60" Aluno : alunosMatriculados
+    SistemaCobrancaService ..> Aluno : notifica
+```
 
 ### Arquitetura do Sistema
 
@@ -152,7 +222,7 @@ O projeto será desenvolvido em três sprints principais.
 * Documentação inicial dos requisitos;
 * Correções e evolução dos modelos conforme feedback.
 
-**Status:** 🚧 Em desenvolvimento
+**Status:** ✅ Concluído
 
 ---
 
@@ -166,7 +236,7 @@ O projeto será desenvolvido em três sprints principais.
 * Classes e atributos;
 * Stubs dos métodos modelados.
 
-**Status:** ⏳ A iniciar
+**Status:** ✅ Concluído
 
 ---
 
@@ -192,7 +262,6 @@ As tecnologias utilizadas no projeto serão definidas conforme a evolução do d
 Inicialmente:
 
 * **Java**
-* **Angular**
 * **Git**
 * **GitHub**
 
@@ -207,12 +276,23 @@ A estrutura do projeto será definida durante as sprints e atualizada conforme s
 ```text
 sistema-matriculas/
 ├── README.md
-├── docs/
-│   └── uml/
-│       ├── caso-de-uso/
-│       └── classes/
+├── caso-de-uso.drawio.png
 └── src/
-    └── ...
+    └── main/
+        └── java/
+            └── br/
+                └── pucminas/
+                    └── matricula/
+                        ├── models/
+                        │   ├── Aluno.java
+                        │   ├── Curriculo.java
+                        │   ├── Curso.java
+                        │   ├── Disciplina.java
+                        │   ├── Professor.java
+                        │   ├── Secretaria.java
+                        │   └── Usuario.java
+                        └── services/
+                            └── SistemaCobrancaService.java
 ```
 
 ---
