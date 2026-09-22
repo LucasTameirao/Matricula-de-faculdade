@@ -146,6 +146,7 @@ classDiagram
     }
     
     class Aluno {
+        -id: Long
         -nome: String
         -matricula: String
         +matricular(Disciplina, isOptativa): boolean
@@ -178,6 +179,7 @@ classDiagram
     }
     
     class Disciplina {
+        -id: Long
         -nome: String
         -limiteAlunos: int = 60
         -minAlunos: int = 3
@@ -193,10 +195,19 @@ classDiagram
     }
     
     class Matricula {
-        -dataMatricula: Date
+        -id: Long
+        -codigoMatricula: String
+        -dataCriacao: Date
+        -status: String
+    }
+
+    class AlunoMatricula {
+        -alunoId: Long
+        -matriculaId: Long
+        -disciplinaId: Long
+        -dataVinculo: Date
         -isOptativa: boolean
         -status: String
-        +cancelar(): boolean
     }
     
     class SistemaCobrancaService {
@@ -207,8 +218,9 @@ classDiagram
     Curriculo "1" o-- "0..*" Disciplina : oferece
     Disciplina "0..*" -- "1" Professor : ministrada por
     
-    Aluno "1" <-- "0..*" Matricula : realizada por
-    Disciplina "1" <-- "0..*" Matricula : referente a
+    Aluno "1" <-- "0..*" AlunoMatricula : alunoId
+    Matricula "1" <-- "0..*" AlunoMatricula : matriculaId
+    Disciplina "1" <-- "0..*" AlunoMatricula : disciplinaId
     
     SistemaCobrancaService ..> Aluno : notifica
 ```
