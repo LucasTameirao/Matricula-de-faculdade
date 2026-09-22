@@ -192,6 +192,13 @@ classDiagram
         +adicionarDisciplina(Disciplina)
     }
     
+    class Matricula {
+        -dataMatricula: Date
+        -isOptativa: boolean
+        -status: String
+        +cancelar(): boolean
+    }
+    
     class SistemaCobrancaService {
         +notificarCobranca(Aluno, List~Disciplina~)
     }
@@ -199,7 +206,10 @@ classDiagram
     Curso "1" *-- "0..*" Disciplina : contem
     Curriculo "1" o-- "0..*" Disciplina : oferece
     Disciplina "0..*" -- "1" Professor : ministrada por
-    Disciplina "0..*" o-- "0..60" Aluno : matricula
+    
+    Aluno "1" <-- "0..*" Matricula : realizada por
+    Disciplina "1" <-- "0..*" Matricula : referente a
+    
     SistemaCobrancaService ..> Aluno : notifica
 ```
 
