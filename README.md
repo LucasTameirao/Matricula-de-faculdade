@@ -199,7 +199,7 @@ classDiagram
     Curso "1" *-- "0..*" Disciplina : contem
     Curriculo "1" o-- "0..*" Disciplina : oferece
     Disciplina "0..*" -- "1" Professor : ministrada por
-    Disciplina "0..*" o-- "0..60" Aluno : alunosMatriculados
+    Disciplina "0..*" o-- "0..60" Aluno : matricula
     SistemaCobrancaService ..> Aluno : notifica
 ```
 
