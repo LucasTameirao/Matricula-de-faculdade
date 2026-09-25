@@ -1,30 +1,43 @@
 package br.pucminas.matricula.models;
 
+import br.pucminas.matricula.exceptions.RegraNegocioException;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Professor extends Usuario {
-    private String nome;
-    private List<Disciplina> disciplinasMinistradas;
+    private static final long serialVersionUID = 1L;
+
+    private final List<Disciplina> disciplinasMinistradas;
 
     public Professor(String login, String senha, String nome) {
-        super(login, senha);
-        this.nome = nome;
+        super(login, senha, nome);
         this.disciplinasMinistradas = new ArrayList<>();
     }
 
+    /** Retorna os alunos matriculados em uma disciplina ministrada por este professor. */
     public List<Aluno> consultarAlunos(Disciplina disciplina) {
-        // Stub: Retorna a lista de alunos matriculados na disciplina informada
-        return new ArrayList<>();
+        if (!disciplinasMinistradas.contains(disciplina)) {
+            throw new RegraNegocioException("Você não ministra a disciplina " + disciplina.getNome() + ".");
+        }
+        return new ArrayList<>(disciplina.getAlunosMatriculados());
     }
-    
+
     public List<Disciplina> consultarDisciplinas() {
-        // Stub: Retorna as disciplinas ministradas por este professor
-        return this.disciplinasMinistradas;
+        return Collections.unmodifiableList(disciplinasMinistradas);
     }
 
-    // Getters e Setters
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
-}
+    public void adicionarDisciplina(Disciplina disciplina) {
+        if (!disciplinasMinistradas.contains(disciplina)) {
+            disciplinasMinistradas.add(disciplina);
+        }
+    }
 
+    public void removerDisciplina(Disciplina disciplina) {
+        disciplinasMinistradas.remove(disciplina);
+    }
+
+    @Override
+    public String getTipo() { return "Professor"; }
+}

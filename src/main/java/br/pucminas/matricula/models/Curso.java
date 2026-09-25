@@ -1,12 +1,16 @@
 package br.pucminas.matricula.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class Curso {
+public class Curso implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String nome;
     private int numeroCreditos;
-    private List<Disciplina> disciplinas;
+    private final List<Disciplina> disciplinas;
 
     public Curso(String nome, int numeroCreditos) {
         this.nome = nome;
@@ -15,16 +19,21 @@ public class Curso {
     }
 
     public void adicionarDisciplina(Disciplina disciplina) {
-        this.disciplinas.add(disciplina);
+        if (!disciplinas.contains(disciplina)) {
+            disciplinas.add(disciplina);
+        }
     }
-    
+
+    public void removerDisciplina(Disciplina disciplina) {
+        disciplinas.remove(disciplina);
+    }
+
     // Getters e Setters
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
-    
+
     public int getNumeroCreditos() { return numeroCreditos; }
     public void setNumeroCreditos(int numeroCreditos) { this.numeroCreditos = numeroCreditos; }
-    
-    public List<Disciplina> getDisciplinas() { return disciplinas; }
-}
 
+    public List<Disciplina> getDisciplinas() { return Collections.unmodifiableList(disciplinas); }
+}

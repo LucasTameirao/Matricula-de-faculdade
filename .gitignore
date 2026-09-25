@@ -1,0 +1,5 @@
+# Classes compiladas
+out/
+
+# Dados gerados em tempo de execução
+dados/

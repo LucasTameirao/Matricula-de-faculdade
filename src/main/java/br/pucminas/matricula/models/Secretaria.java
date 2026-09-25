@@ -1,34 +1,33 @@
 package br.pucminas.matricula.models;
 
+import java.util.List;
+
 public class Secretaria extends Usuario {
+    private static final long serialVersionUID = 1L;
 
-    public Secretaria(String login, String senha) {
-        super(login, senha);
-    }
-
-    public Curriculo gerarCurriculo(String semestre) {
-        // Stub: Gera currículo para o semestre
-        return new Curriculo(semestre);
+    public Secretaria(String login, String senha, String nome) {
+        super(login, senha, nome);
     }
 
-    public boolean manterDisciplina(Disciplina disciplina) {
-        // Stub: Cadastra ou atualiza disciplina
-        return true;
+    /** Gera o currículo do semestre com as disciplinas ofertadas, reiniciando suas inscrições. */
+    public Curriculo gerarCurriculo(String semestre, List<Disciplina> disciplinas) {
+        Curriculo curriculo = new Curriculo(semestre);
+        for (Disciplina disciplina : disciplinas) {
+            disciplina.reiniciar();
+            curriculo.adicionarDisciplina(disciplina);
+        }
+        return curriculo;
     }
 
-    public boolean manterProfessor(Professor professor) {
-        // Stub: Cadastra ou atualiza professor
-        return true;
+    public void abrirPeriodoMatriculas(Curriculo curriculo) {
+        curriculo.abrirPeriodoMatriculas();
     }
 
-    public boolean manterAluno(Aluno aluno) {
-        // Stub: Cadastra ou atualiza aluno
-        return true;
+    /** Encerra o período e define quais disciplinas ficam ativas ou são canceladas. */
+    public void encerrarPeriodoMatriculas(Curriculo curriculo) {
+        curriculo.encerrarPeriodoMatriculas();
     }
-    
-    public boolean manterCurso(Curso curso) {
-        // Stub: Cadastra ou atualiza curso
-        return true;
-    }
+
+    @Override
+    public String getTipo() { return "Secretaria"; }
 }
-
