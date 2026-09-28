@@ -2,6 +2,7 @@ package br.pucminas.matricula.models;
 
 public enum StatusDisciplina {
     NAO_OFERTADA("Não ofertada"),
+    AGUARDANDO_PERIODO("Aguardando período de matrículas"),
     EM_MATRICULA("Em matrícula"),
     ATIVA("Ativa"),
     CANCELADA("Cancelada");

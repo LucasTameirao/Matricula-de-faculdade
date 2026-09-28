@@ -144,7 +144,7 @@ Versão atualizada na Sprint 03 para refletir a implementação. As versões ant
 * As classes `Matricula` (matrícula do aluno em um semestre) e `AlunoMatricula` (vínculo da matrícula com cada disciplina, com `isOptativa`, `dataVinculo` e `status`) foram implementadas. No código, os campos `alunoId`/`matriculaId`/`disciplinaId` da v1.1 viraram referências diretas aos objetos, e `status` passou de `String` para os enums `StatusMatricula` e `StatusVinculo`;
 * A regra de 4 obrigatórias + 2 optativas fica em `Matricula`. Cancelar uma disciplina não apaga o vínculo: ele fica como `CANCELADO` e aparece no histórico do aluno;
 * `Aluno` passou a ter vínculo com `Curso`, e os `id` de `Aluno`, `Disciplina` e `Matricula` são gerados por `Universidade.gerarId()`;
-* `Disciplina` ganhou `codigo` e um `StatusDisciplina` (Não ofertada / Em matrícula / Ativa / Cancelada) no lugar do `boolean ativa`;
+* `Disciplina` ganhou `codigo` e um `StatusDisciplina` (Não ofertada / Aguardando período / Em matrícula / Ativa / Cancelada) no lugar do `boolean ativa`;
 * `Curriculo` passou a controlar o **período de matrículas** (abrir/encerrar); ao encerrar, cada disciplina verifica o mínimo de 3 alunos;
 * Os métodos `manterX` da `Secretaria` foram substituídos pela fachada `SistemaMatriculas`, que concentra os casos de uso, e pela classe `Universidade`, que agrega os dados persistidos;
 * Novas classes: `StatusMatricula`, `StatusVinculo`, `Universidade`, `StatusDisciplina`, `SistemaMatriculas`, `ArquivoPersistencia`, `DadosIniciais`, `MenuCLI` e `RegraNegocioException`;
@@ -244,6 +244,7 @@ classDiagram
         +removerInscricao(AlunoMatricula): boolean
         +getAlunosMatriculados(): List~Aluno~
         +verificarStatus()
+        +ofertar()
         +reiniciar()
         +retirarDeOferta()
         +isLotada(): boolean
@@ -253,6 +254,7 @@ classDiagram
     class StatusDisciplina {
         <<enumeration>>
         NAO_OFERTADA
+        AGUARDANDO_PERIODO
         EM_MATRICULA
         ATIVA
         CANCELADA

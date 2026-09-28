@@ -33,7 +33,7 @@ public class Disciplina implements Serializable {
     /** Inscreve o aluno; ao atingir 60 alunos as inscrições da disciplina ficam encerradas. */
     public void adicionarInscricao(AlunoMatricula inscricao) {
         if (status != StatusDisciplina.EM_MATRICULA) {
-            throw new RegraNegocioException("As matrículas para " + nome + " já foram encerradas.");
+            throw new RegraNegocioException("As inscrições para " + nome + " não estão abertas.");
         }
         if (isLotada()) {
             throw new RegraNegocioException(nome + " atingiu o limite de " + LIMITE_ALUNOS
@@ -49,6 +49,12 @@ public class Disciplina implements Serializable {
     /** Chamado ao fim do período: a disciplina só ocorre com pelo menos 3 alunos. */
     public void verificarStatus() {
         status = inscricoes.size() >= MIN_ALUNOS ? StatusDisciplina.ATIVA : StatusDisciplina.CANCELADA;
+    }
+
+    /** Inclui a disciplina no currículo; as inscrições abrem junto com o período de matrículas. */
+    public void ofertar() {
+        inscricoes.clear();
+        status = StatusDisciplina.AGUARDANDO_PERIODO;
     }
 
     /** Prepara a disciplina para um novo período de matrículas. */

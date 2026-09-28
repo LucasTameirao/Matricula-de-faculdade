@@ -13,7 +13,7 @@ public class Secretaria extends Usuario {
     public Curriculo gerarCurriculo(String semestre, List<Disciplina> disciplinas) {
         Curriculo curriculo = new Curriculo(semestre);
         for (Disciplina disciplina : disciplinas) {
-            disciplina.reiniciar();
+            disciplina.ofertar();
             curriculo.adicionarDisciplina(disciplina);
         }
         return curriculo;

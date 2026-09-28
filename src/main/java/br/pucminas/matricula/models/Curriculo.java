@@ -39,6 +39,9 @@ public class Curriculo implements Serializable {
             throw new RegraNegocioException("O período de matrículas já está aberto.");
         }
         periodoMatriculasAberto = true;
+        for (Disciplina disciplina : disciplinas) {
+            disciplina.reiniciar();
+        }
     }
 
     public void encerrarPeriodoMatriculas() {
