@@ -2,20 +2,20 @@ package br.pucminas.matricula.services;
 
 import br.pucminas.matricula.models.Disciplina;
 import br.pucminas.matricula.models.Matricula;
+import br.pucminas.matricula.persistence.ArquivoPersistencia;
+import br.pucminas.matricula.persistence.Csv;
 
-import java.io.IOException;
-import java.nio.file.Files;
+import java.io.UncheckedIOException;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Simula o sistema de cobranças externo: cada notificação é registrada em um arquivo texto.
+ * Simula o sistema de cobranças externo: cada notificação é registrada em um arquivo CSV.
  */
 public class SistemaCobrancaService {
-    private static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    private static final String CABECALHO = "dataHora;codigoMatricula;matriculaAluno;aluno;quantidadeDisciplinas;disciplinas";
 
     private final Path arquivoNotificacoes;
 
@@ -25,21 +25,14 @@ public class SistemaCobrancaService {
 
     /** Informa as disciplinas que devem ser cobradas do aluno na matrícula do semestre. */
     public void notificarCobranca(Matricula matricula) {
-        var disciplinasSemestre = matricula.getDisciplinas();
-        String disciplinas = disciplinasSemestre.isEmpty()
-                ? "(nenhuma)"
-                : disciplinasSemestre.stream().map(Disciplina::getNome).collect(Collectors.joining(", "));
-        String registro = String.format("[%s] Matrícula %s | Aluno: %s (%s) | %d disciplina(s) a cobrar: %s%n",
-                LocalDateTime.now().format(FORMATO_DATA), matricula.getCodigoMatricula(),
-                matricula.getAluno().getNome(), matricula.getAluno().getMatricula(),
+        List<Disciplina> disciplinasSemestre = matricula.getDisciplinas();
+        String disciplinas = disciplinasSemestre.stream().map(Disciplina::getCodigo).collect(Collectors.joining(", "));
+        String registro = Csv.linha(LocalDateTime.now().format(ArquivoPersistencia.FORMATO_DATA),
+                matricula.getCodigoMatricula(), matricula.getAluno().getMatricula(), matricula.getAluno().getNome(),
                 disciplinasSemestre.size(), disciplinas);
         try {
-            Path pasta = arquivoNotificacoes.toAbsolutePath().getParent();
-            if (pasta != null) {
-                Files.createDirectories(pasta);
-            }
-            Files.writeString(arquivoNotificacoes, registro, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-        } catch (IOException e) {
+            Csv.acrescentar(arquivoNotificacoes, CABECALHO, registro);
+        } catch (UncheckedIOException e) {
             System.err.println("Falha ao notificar o sistema de cobranças: " + e.getMessage());
         }
     }

@@ -1,10 +1,6 @@
 package br.pucminas.matricula.models;
 
-import java.io.Serializable;
-
-public abstract class Usuario implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public abstract class Usuario {
     protected String login;
     protected String senha;
     protected String nome;

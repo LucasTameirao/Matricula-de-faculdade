@@ -2,14 +2,11 @@ package br.pucminas.matricula.models;
 
 import br.pucminas.matricula.exceptions.RegraNegocioException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Curriculo implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class Curriculo {
     private String semestre;
     private final List<Disciplina> disciplinas;
     private boolean periodoMatriculasAberto;
@@ -53,6 +50,12 @@ public class Curriculo implements Serializable {
         for (Disciplina disciplina : disciplinas) {
             disciplina.verificarStatus();
         }
+    }
+
+    /** Usado pela persistência para recriar a situação do período salva. */
+    public void restaurarPeriodo(boolean aberto, boolean encerrado) {
+        this.periodoMatriculasAberto = aberto;
+        this.periodoMatriculasEncerrado = encerrado;
     }
 
     public boolean contemDisciplina(Disciplina disciplina) {

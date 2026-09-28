@@ -2,17 +2,14 @@ package br.pucminas.matricula.models;
 
 import br.pucminas.matricula.exceptions.RegraNegocioException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
- * Agrega todos os dados mantidos pela secretaria. É o objeto persistido em arquivo.
+ * Agrega todos os dados mantidos pela secretaria. É o objeto salvo no arquivo texto.
  */
-public class Universidade implements Serializable {
-    private static final long serialVersionUID = 2L;
-
+public class Universidade {
     private final List<Usuario> usuarios = new ArrayList<>();
     private final List<Curso> cursos = new ArrayList<>();
     private final List<Disciplina> disciplinas = new ArrayList<>();
@@ -22,6 +19,13 @@ public class Universidade implements Serializable {
     /** Gera identificadores sequenciais para alunos, disciplinas e matrículas. */
     public Long gerarId() {
         return ++ultimoId;
+    }
+
+    public long getUltimoId() { return ultimoId; }
+
+    /** Usado pela persistência para continuar a sequência de ids salva. */
+    public void restaurarUltimoId(long ultimoId) {
+        this.ultimoId = ultimoId;
     }
 
     // ---------- Usuários ----------
@@ -46,6 +50,8 @@ public class Universidade implements Serializable {
     public Usuario buscarUsuario(String login) {
         return usuarios.stream().filter(u -> u.getLogin().equals(login)).findFirst().orElse(null);
     }
+
+    public List<Usuario> getUsuarios() { return Collections.unmodifiableList(usuarios); }
 
     public Aluno buscarAluno(String matricula) {
         return getAlunos().stream().filter(a -> a.getMatricula().equalsIgnoreCase(matricula)).findFirst().orElse(null);

@@ -4,5 +4,5 @@ out/
 # Build do Maven
 target/
 
-# Dados gerados em tempo de execução
-dados/
+# Arquivos temporários da gravação do banco CSV
+dados/*.tmp

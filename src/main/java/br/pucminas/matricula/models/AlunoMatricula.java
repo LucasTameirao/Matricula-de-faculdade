@@ -1,15 +1,12 @@
 package br.pucminas.matricula.models;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * Vínculo entre o aluno, a sua matrícula do semestre e uma disciplina.
  * Cancelar a disciplina não apaga o vínculo: ele fica com status CANCELADO no histórico.
  */
-public class AlunoMatricula implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class AlunoMatricula {
     private final Aluno aluno;
     private final Matricula matricula;
     private final Disciplina disciplina;
@@ -18,12 +15,18 @@ public class AlunoMatricula implements Serializable {
     private StatusVinculo status;
 
     public AlunoMatricula(Matricula matricula, Disciplina disciplina, boolean optativa) {
+        this(matricula, disciplina, optativa, LocalDateTime.now(), StatusVinculo.ATIVO);
+    }
+
+    /** Usado pela persistência para recriar um vínculo salvo. */
+    public AlunoMatricula(Matricula matricula, Disciplina disciplina, boolean optativa,
+                          LocalDateTime dataVinculo, StatusVinculo status) {
         this.aluno = matricula.getAluno();
         this.matricula = matricula;
         this.disciplina = disciplina;
         this.optativa = optativa;
-        this.dataVinculo = LocalDateTime.now();
-        this.status = StatusVinculo.ATIVO;
+        this.dataVinculo = dataVinculo;
+        this.status = status;
     }
 
     public void cancelar() {

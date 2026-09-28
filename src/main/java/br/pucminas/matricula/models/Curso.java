@@ -1,13 +1,10 @@
 package br.pucminas.matricula.models;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Curso implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class Curso {
     private String nome;
     private int numeroCreditos;
     private final List<Disciplina> disciplinas;

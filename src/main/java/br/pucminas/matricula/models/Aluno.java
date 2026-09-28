@@ -7,8 +7,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class Aluno extends Usuario {
-    private static final long serialVersionUID = 2L;
-
     private Long id;
     private String matricula;
     private Curso curso;
@@ -47,6 +45,11 @@ public class Aluno extends Usuario {
 
     public Matricula getMatricula(String semestre) {
         return matriculas.stream().filter(m -> m.getSemestre().equals(semestre)).findFirst().orElse(null);
+    }
+
+    /** Usado pela persistência para recriar as matrículas salvas. */
+    public void restaurarMatricula(Matricula matricula) {
+        matriculas.add(matricula);
     }
 
     public void cancelarTodasMatriculas() {

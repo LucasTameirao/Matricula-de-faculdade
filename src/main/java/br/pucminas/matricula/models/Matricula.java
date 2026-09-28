@@ -2,7 +2,6 @@ package br.pucminas.matricula.models;
 
 import br.pucminas.matricula.exceptions.RegraNegocioException;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.ArrayList;
@@ -12,9 +11,7 @@ import java.util.List;
  * Matrícula de um aluno em um semestre. Reúne os vínculos com as disciplinas
  * e aplica o limite de 4 obrigatórias (1ª opção) e 2 optativas (alternativas).
  */
-public class Matricula implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class Matricula {
     public static final int MAX_OBRIGATORIAS = 4;
     public static final int MAX_OPTATIVAS = 2;
 
@@ -27,12 +24,17 @@ public class Matricula implements Serializable {
     private final List<AlunoMatricula> itens;
 
     public Matricula(Long id, Aluno aluno, String semestre) {
+        this(id, aluno, semestre, LocalDateTime.now(), StatusMatricula.EM_ANDAMENTO);
+    }
+
+    /** Usado pela persistência para recriar uma matrícula salva. */
+    public Matricula(Long id, Aluno aluno, String semestre, LocalDateTime dataCriacao, StatusMatricula status) {
         this.id = id;
         this.aluno = aluno;
         this.semestre = semestre;
         this.codigoMatricula = semestre + "-" + aluno.getMatricula();
-        this.dataCriacao = LocalDateTime.now();
-        this.status = StatusMatricula.EM_ANDAMENTO;
+        this.dataCriacao = dataCriacao;
+        this.status = status;
         this.itens = new ArrayList<>();
     }
 
@@ -61,6 +63,14 @@ public class Matricula implements Serializable {
         }
         item.cancelar();
         disciplina.removerInscricao(item);
+    }
+
+    /** Usado pela persistência: recria um vínculo salvo sem reaplicar as regras de matrícula. */
+    public AlunoMatricula restaurarItem(Disciplina disciplina, boolean optativa, LocalDateTime dataVinculo,
+                                        StatusVinculo status) {
+        AlunoMatricula item = new AlunoMatricula(this, disciplina, optativa, dataVinculo, status);
+        itens.add(item);
+        return item;
     }
 
     /** Cancela todos os vínculos ativos (usado quando o aluno é removido do sistema). */

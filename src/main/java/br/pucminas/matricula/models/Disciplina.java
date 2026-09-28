@@ -2,14 +2,11 @@ package br.pucminas.matricula.models;
 
 import br.pucminas.matricula.exceptions.RegraNegocioException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Disciplina implements Serializable {
-    private static final long serialVersionUID = 2L;
-
+public class Disciplina {
     public static final int LIMITE_ALUNOS = 60;
     public static final int MIN_ALUNOS = 3;
 
@@ -67,6 +64,16 @@ public class Disciplina implements Serializable {
     public void retirarDeOferta() {
         inscricoes.clear();
         status = StatusDisciplina.NAO_OFERTADA;
+    }
+
+    /** Usado pela persistência para recriar o estado salvo, sem reaplicar as regras. */
+    public void restaurarStatus(StatusDisciplina status) {
+        this.status = status;
+    }
+
+    /** Usado pela persistência para recriar os inscritos da oferta atual. */
+    public void restaurarInscricao(AlunoMatricula inscricao) {
+        inscricoes.add(inscricao);
     }
 
     public boolean isLotada() {

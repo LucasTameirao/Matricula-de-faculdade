@@ -1,0 +1,18 @@
+﻿id;codigo;nome;curso;loginProfessor;status
+1;ES101;Algoritmos e Estruturas de Dados;Engenharia de Software;ana;EM_MATRICULA
+2;ES102;Projeto de Software;Engenharia de Software;carlos;EM_MATRICULA
+3;ES103;Banco de Dados;Engenharia de Software;fernanda;EM_MATRICULA
+4;ES104;Cálculo I;Engenharia de Software;ricardo;EM_MATRICULA
+5;ES105;Arquitetura de Computadores;Engenharia de Software;marcos;EM_MATRICULA
+6;ES106;Empreendedorismo;Engenharia de Software;patricia;NAO_OFERTADA
+7;ES107;Inglês Instrumental;Engenharia de Software;juliana;EM_MATRICULA
+8;CC101;Programação Orientada a Objetos;Ciência da Computação;ana;EM_MATRICULA
+9;CC102;Teoria da Computação;Ciência da Computação;roberto;EM_MATRICULA
+10;CC103;Inteligência Artificial;Ciência da Computação;fernanda;EM_MATRICULA
+11;CC104;Computação Gráfica;Ciência da Computação;marcos;NAO_OFERTADA
+12;SI101;Lógica de Programação;Sistemas de Informação;juliana;EM_MATRICULA
+13;SI102;Gestão de Projetos;Sistemas de Informação;patricia;EM_MATRICULA
+14;SI103;Sistemas de Apoio à Decisão;Sistemas de Informação;carlos;EM_MATRICULA
+15;EC101;Circuitos Digitais;Engenharia de Computação;roberto;EM_MATRICULA
+16;EC102;Sistemas Embarcados;Engenharia de Computação;marcos;EM_MATRICULA
+17;EC103;Redes de Computadores;Engenharia de Computação;ricardo;NAO_OFERTADA

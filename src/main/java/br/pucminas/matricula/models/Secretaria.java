@@ -3,8 +3,6 @@ package br.pucminas.matricula.models;
 import java.util.List;
 
 public class Secretaria extends Usuario {
-    private static final long serialVersionUID = 1L;
-
     public Secretaria(String login, String senha, String nome) {
         super(login, senha, nome);
     }

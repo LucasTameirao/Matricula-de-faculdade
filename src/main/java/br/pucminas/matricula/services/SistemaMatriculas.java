@@ -194,6 +194,13 @@ public class SistemaMatriculas {
         if (!disciplina.getInscricoes().isEmpty()) {
             throw new RegraNegocioException("A disciplina possui alunos matriculados e não pode ser removida.");
         }
+        boolean temHistorico = universidade.getAlunos().stream()
+                .flatMap(a -> a.getMatriculas().stream())
+                .flatMap(m -> m.getItens().stream())
+                .anyMatch(item -> item.getDisciplina() == disciplina);
+        if (temHistorico) {
+            throw new RegraNegocioException("A disciplina aparece no histórico de matrículas e não pode ser removida.");
+        }
         Curriculo curriculo = universidade.getCurriculoAtual();
         if (curriculo != null) {
             curriculo.removerDisciplina(disciplina);

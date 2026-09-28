@@ -7,8 +7,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class Professor extends Usuario {
-    private static final long serialVersionUID = 1L;
-
     private final List<Disciplina> disciplinasMinistradas;
 
     public Professor(String login, String senha, String nome) {

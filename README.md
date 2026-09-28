@@ -147,7 +147,8 @@ Versão atualizada na Sprint 03 para refletir a implementação. As versões ant
 * `Disciplina` ganhou `codigo` e um `StatusDisciplina` (Não ofertada / Aguardando período / Em matrícula / Ativa / Cancelada) no lugar do `boolean ativa`;
 * `Curriculo` passou a controlar o **período de matrículas** (abrir/encerrar); ao encerrar, cada disciplina verifica o mínimo de 3 alunos;
 * Os métodos `manterX` da `Secretaria` foram substituídos pela fachada `SistemaMatriculas`, que concentra os casos de uso, e pela classe `Universidade`, que agrega os dados persistidos;
-* Novas classes: `StatusMatricula`, `StatusVinculo`, `Universidade`, `StatusDisciplina`, `SistemaMatriculas`, `ArquivoPersistencia`, `DadosIniciais`, `MenuCLI` e `RegraNegocioException`;
+* Novas classes: `StatusMatricula`, `StatusVinculo`, `Universidade`, `StatusDisciplina`, `SistemaMatriculas`, `ArquivoPersistencia`, `Csv`, `DadosIniciais`, `MenuCLI` e `RegraNegocioException`;
+* A persistência é um "banco de dados" em **CSV**: `ArquivoPersistencia` grava uma tabela por entidade na pasta `dados/`;
 * Violações de regra de negócio passaram a lançar `RegraNegocioException` com mensagem para o usuário, em vez de retornar `boolean`.
 
 ```mermaid
@@ -305,8 +306,17 @@ classDiagram
     }
 
     class ArquivoPersistencia {
+        -pasta: Path
         +carregar(): Universidade
         +salvar(Universidade)
+    }
+
+    class Csv {
+        <<utility>>
+        +linha(campos...): String
+        +dividir(linha): List~String~
+        +gravar(arquivo, cabecalho, linhas)
+        +acrescentar(arquivo, cabecalho, linha)
     }
 
     class MenuCLI {
@@ -333,7 +343,9 @@ classDiagram
     SistemaCobrancaService ..> Matricula : cobra
     SistemaMatriculas --> ArquivoPersistencia : salva
     MenuCLI --> SistemaMatriculas
-    ArquivoPersistencia ..> Universidade : serializa
+    ArquivoPersistencia ..> Universidade : grava/lê CSV
+    ArquivoPersistencia ..> Csv
+    SistemaCobrancaService ..> Csv
 ```
 
 ### Arquitetura do Sistema
@@ -345,8 +357,8 @@ flowchart TD
     UI["ui<br/>MenuCLI (interface em linha de comando)"]
     SRV["services<br/>SistemaMatriculas (fachada dos casos de uso)<br/>SistemaCobrancaService"]
     MOD["models<br/>Usuario, Aluno, Professor, Secretaria, Curso, Disciplina,<br/>Matricula, AlunoMatricula, Curriculo, Universidade"]
-    PER["persistence<br/>ArquivoPersistencia, DadosIniciais"]
-    ARQ[("dados/universidade.dat<br/>dados/cobrancas.txt")]
+    PER["persistence<br/>ArquivoPersistencia, Csv, DadosIniciais"]
+    ARQ[("dados/*.csv<br/>(uma tabela por entidade + cobrancas.csv)")]
 
     UI --> SRV
     SRV --> MOD
@@ -358,8 +370,8 @@ flowchart TD
 * **ui** — lê a entrada do usuário e exibe os resultados; não contém regras de negócio.
 * **services** — `SistemaMatriculas` orquestra os casos de uso (login, matrícula, cadastros, período de matrículas), aplica as regras que dependem de contexto (ex.: só matricular durante o período aberto), notifica o sistema de cobranças e salva os dados após cada alteração.
 * **models** — entidades do domínio com as regras de negócio (limite de 4 obrigatórias + 2 optativas na `Matricula`, máximo de 60 alunos e mínimo de 3 alunos na `Disciplina`).
-* **persistence** — salva/carrega todos os dados em arquivo via serialização Java e cria dados de exemplo na primeira execução.
-* **Sistema de cobranças** — simulado por `SistemaCobrancaService`, que registra cada notificação em `dados/cobrancas.txt`.
+* **persistence** — "banco de dados" em CSV: `ArquivoPersistencia` grava e lê uma tabela por entidade em `dados/` (ver a seção *Banco de dados CSV* abaixo); `DadosIniciais` gera o banco de exemplo quando a pasta não existe.
+* **Sistema de cobranças** — simulado por `SistemaCobrancaService`, que registra cada notificação em `dados/cobrancas.csv`.
 
 ---
 
@@ -414,7 +426,7 @@ O projeto será desenvolvido em três sprints principais.
 * **Java 17+** (sem dependências externas)
 * **Git** e **GitHub**
 * Interface em **linha de comando**
-* Persistência em **arquivos** (serialização Java)
+* Persistência em **arquivos CSV** (abríveis no Excel)
 
 ---
 
@@ -444,32 +456,63 @@ java -cp out br.pucminas.matricula.Main
 
 Com Maven instalado, também é possível gerar um `.jar` executável: `mvn package` e depois `java -jar target/sistema-matriculas-1.0.jar`.
 
-Na primeira execução é criada a pasta `dados/` com dados de exemplo: um curso, 7 disciplinas e um currículo **2027/1 com o período de matrículas já aberto**. Para recomeçar do zero, basta apagar a pasta `dados/`.
+📖 O passo a passo de uso de cada perfil está no **[Manual de Utilização](docs/manual-de-utilizacao.md)**.
 
 ### Usuários de exemplo
 
-| Perfil     | Login        | Senha |
-| ---------- | ------------ | ----- |
-| Secretaria | `secretaria` | `123` |
-| Professor  | `ana`        | `123` |
-| Professor  | `carlos`     | `123` |
-| Aluno      | `joao`       | `123` |
-| Aluno      | `maria`      | `123` |
-| Aluno      | `pedro`      | `123` |
+Todos os usuários têm a senha **`123`**. A lista completa está em [dados/alunos.csv](dados/alunos.csv), [dados/professores.csv](dados/professores.csv) e [dados/secretarias.csv](dados/secretarias.csv).
+
+| Perfil     | Logins |
+| ---------- | ------ |
+| Secretaria | `secretaria`, `coordenacao` |
+| Professor  | `ana`, `carlos`, `fernanda`, `ricardo`, `juliana`, `marcos`, `patricia`, `roberto` |
+| Aluno      | `joao` (sem matrícula no semestre atual), `maria` (matrícula parcial), `pedro` (todas as vagas preenchidas) e mais 69 alunos, como `lucas.costa` e `beatriz.pereira` |
 
 ### Roteiro de demonstração
 
-1. Entre como `joao`, `maria` e `pedro` e matricule os três em `ES101` (a disciplina atinge o mínimo de 3 alunos). Tente passar de 4 obrigatórias ou 2 optativas para ver o bloqueio.
-2. Veja em `dados/cobrancas.txt` as notificações enviadas ao sistema de cobranças.
-3. Entre como `ana` e consulte os alunos matriculados em `ES101`.
-4. Entre como `secretaria` e **encerre o período de matrículas**: `ES101` fica **Ativa** e as disciplinas com menos de 3 alunos ficam **Canceladas**.
-5. Ainda como secretaria, gere o currículo de um novo semestre e abra um novo período de matrículas.
+1. Entre como `joao` e tente se matricular em `ES101`: ela está **lotada (60/60)**. Matricule-o em outras disciplinas obrigatórias e optativas.
+2. Entre como `pedro` e tente mais uma matrícula: ele já tem 4 obrigatórias e 2 optativas.
+3. Abra `dados/cobrancas.csv` para ver as notificações enviadas ao sistema de cobranças.
+4. Entre como `ana` e consulte os 60 alunos de `ES101`.
+5. Entre como `secretaria` e **encerre o período de matrículas**: `CC102` (2 alunos), `EC102` (1) e `SI103` (0) ficam **Canceladas**; as demais ficam **Ativas**.
+6. Ainda como secretaria, gere o currículo de `2027/2` e abra o novo período. Os alunos continuam vendo o semestre anterior no **histórico**.
+
+Para voltar ao banco de exemplo original, desfaça as alterações da pasta com `git checkout -- dados/` (ou apague a pasta `dados/` para que o sistema gere tudo de novo).
 
 ### Funcionalidades por perfil
 
 * **Aluno:** ver disciplinas ofertadas (com vagas e situação), matricular-se em obrigatórias (1ª opção) ou optativas, cancelar matrícula, consultar a matrícula do semestre e o histórico de matrículas.
 * **Professor:** ver as disciplinas que ministra e os alunos matriculados em cada uma.
 * **Secretaria:** cadastrar, listar e remover cursos, disciplinas, professores e alunos; trocar o professor de uma disciplina; gerar o currículo do semestre; abrir e encerrar o período de matrículas.
+
+---
+
+## 🗄️ Banco de dados CSV
+
+Os dados ficam na pasta [`dados/`](dados/), com **um arquivo CSV por entidade**. Os arquivos usam separador `;` e codificação UTF-8, e abrem direto no Excel. O sistema lê tudo ao iniciar e regrava as tabelas **a cada alteração**.
+
+| Arquivo | Conteúdo | Colunas |
+| ------- | -------- | ------- |
+| `secretarias.csv` | Usuários da secretaria | `login;senha;nome` |
+| `professores.csv` | Professores | `login;senha;nome` |
+| `cursos.csv` | Cursos | `nome;numeroCreditos` |
+| `alunos.csv` | Alunos | `id;matricula;nome;login;senha;curso` |
+| `disciplinas.csv` | Disciplinas | `id;codigo;nome;curso;loginProfessor;status` |
+| `curriculo.csv` | Currículo do semestre atual | `semestre;periodoMatriculas` |
+| `curriculo_disciplinas.csv` | Disciplinas ofertadas no currículo | `semestre;codigoDisciplina` |
+| `matriculas.csv` | Matrícula de cada aluno por semestre | `id;codigoMatricula;matriculaAluno;semestre;dataCriacao;status` |
+| `itens_matricula.csv` | Vínculos matrícula × disciplina (`AlunoMatricula`) | `idMatricula;matriculaAluno;codigoDisciplina;tipo;dataVinculo;status` |
+| `cobrancas.csv` | Notificações ao sistema de cobranças (criado na 1ª matrícula) | `dataHora;codigoMatricula;matriculaAluno;aluno;quantidadeDisciplinas;disciplinas` |
+
+As ligações entre tabelas usam o login do professor, o nome do curso, o código da disciplina, o número de matrícula do aluno e o `id` da matrícula. Os inscritos de cada disciplina não são gravados separadamente: o sistema os reconstrói a partir dos vínculos ativos do semestre atual.
+
+O banco de exemplo inclui:
+* 2 usuários de secretaria, 4 cursos, 8 professores e 72 alunos;
+* 17 disciplinas, das quais 14 são ofertadas em 2027/1;
+* o semestre 2026/2 já concluído, cujo histórico tem disciplinas canceladas;
+* o semestre 2027/1 com o período aberto: `ES101` lotada e disciplinas com poucos alunos.
+
+Se um arquivo for editado à mão e ficar inválido, o sistema **não inicia e não sobrescreve nada**: ele informa o arquivo e a linha com problema.
 
 ---
 
@@ -484,7 +527,18 @@ Matricula-de-faculdade/
 ├── .vscode/
 │   └── launch.json
 ├── caso-de-uso.drawio.png
+├── dados/                      ← banco de dados CSV
+│   ├── alunos.csv
+│   ├── cursos.csv
+│   ├── curriculo.csv
+│   ├── curriculo_disciplinas.csv
+│   ├── disciplinas.csv
+│   ├── itens_matricula.csv
+│   ├── matriculas.csv
+│   ├── professores.csv
+│   └── secretarias.csv
 ├── docs/
+│   ├── manual-de-utilizacao.md
 │   └── diagramas/
 │       ├── diagrama-classes-v1.md
 │       └── diagrama-classes-v1.1.md
@@ -508,6 +562,7 @@ Matricula-de-faculdade/
     │   └── Usuario.java
     ├── persistence/
     │   ├── ArquivoPersistencia.java
+    │   ├── Csv.java
     │   └── DadosIniciais.java
     ├── services/
     │   ├── SistemaCobrancaService.java
