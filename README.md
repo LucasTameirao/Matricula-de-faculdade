@@ -420,18 +420,29 @@ O projeto será desenvolvido em três sprints principais.
 
 ## ▶️ Como executar
 
-Pré-requisito: JDK 17 ou superior.
+Pré-requisito: **JDK 17 ou superior** (no Windows, verifique com `java -version` no Prompt de Comando).
+
+A classe principal é **`br.pucminas.matricula.Main`** ([Main.java](src/main/java/br/pucminas/matricula/Main.java)). O projeto é Maven (`pom.xml`), então qualquer IDE o reconhece e permite rodar direto pelo `Main`:
+
+* **VSCode** (com o *Extension Pack for Java*): abra a pasta do projeto, abra `Main.java` e clique em **Run** acima do método `main`, ou pressione **F5** e escolha a configuração *Sistema de Matrículas*.
+* **IntelliJ IDEA:** *File → Open* → selecione a pasta do projeto (ele é importado como Maven). Abra `Main.java` e clique no ▶ verde ao lado do `main`.
+* **Eclipse:** *File → Import → Maven → Existing Maven Projects* → selecione a pasta do projeto. Clique com o botão direito em `Main.java` → *Run As → Java Application*.
+
+O programa é interativo e usa o terminal/console da IDE para ler as opções. Os dados são gravados na pasta `dados/`, dentro da pasta do projeto (o diretório de trabalho padrão das IDEs).
+
+**Pela linha de comando:**
+
+* Windows: dê dois cliques em `executar.bat` ou rode-o no Prompt de Comando.
+* Linux/macOS: `./executar.sh`
+
+Ou manualmente, a partir da pasta do projeto (funciona em qualquer sistema):
 
 ```bash
-./executar.sh
-```
-
-Ou manualmente:
-
-```bash
-javac --release 17 -encoding UTF-8 -d out $(find src/main/java -name "*.java")
+javac --release 17 -encoding UTF-8 -d out --source-path src/main/java src/main/java/br/pucminas/matricula/Main.java
 java -cp out br.pucminas.matricula.Main
 ```
+
+Com Maven instalado, também é possível gerar um `.jar` executável: `mvn package` e depois `java -jar target/sistema-matriculas-1.0.jar`.
 
 Na primeira execução é criada a pasta `dados/` com dados de exemplo: um curso, 7 disciplinas e um currículo **2027/1 com o período de matrículas já aberto**. Para recomeçar do zero, basta apagar a pasta `dados/`.
 
@@ -467,7 +478,11 @@ Na primeira execução é criada a pasta `dados/` com dados de exemplo: um curso
 ```text
 Matricula-de-faculdade/
 ├── README.md
+├── pom.xml
+├── executar.bat
 ├── executar.sh
+├── .vscode/
+│   └── launch.json
 ├── caso-de-uso.drawio.png
 ├── docs/
 │   └── diagramas/

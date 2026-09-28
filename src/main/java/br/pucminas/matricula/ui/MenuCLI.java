@@ -12,6 +12,7 @@ import br.pucminas.matricula.models.Secretaria;
 import br.pucminas.matricula.models.Usuario;
 import br.pucminas.matricula.services.SistemaMatriculas;
 
+import java.nio.charset.Charset;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +26,7 @@ public class MenuCLI {
     private static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     private final SistemaMatriculas sistema;
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in, charsetDoConsole());
 
     public MenuCLI(SistemaMatriculas sistema) {
         this.sistema = sistema;
@@ -428,6 +429,24 @@ public class MenuCLI {
         } catch (RegraNegocioException e) {
             erro(e.getMessage());
         }
+    }
+
+    /**
+     * Codificação usada pelo terminal. No Windows o console não usa UTF-8 (ex.: CP850),
+     * e ler a entrada com a codificação errada corrompe acentos como em "Informação".
+     */
+    private static Charset charsetDoConsole() {
+        for (String propriedade : new String[]{"stdin.encoding", "stdout.encoding", "sun.stdout.encoding"}) {
+            String nome = System.getProperty(propriedade);
+            if (nome != null) {
+                try {
+                    return Charset.forName(nome);
+                } catch (RuntimeException e) {
+                    // Codificação desconhecida: tenta a próxima.
+                }
+            }
+        }
+        return Charset.defaultCharset();
     }
 
     private String lerTexto(String rotulo) {

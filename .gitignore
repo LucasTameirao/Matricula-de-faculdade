@@ -1,5 +1,8 @@
 # Classes compiladas
 out/
 
+# Build do Maven
+target/
+
 # Dados gerados em tempo de execução
 dados/
