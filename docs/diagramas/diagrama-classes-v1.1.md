@@ -1,6 +1,6 @@
-# Diagrama de Classes — v1 (Lab01S02)
+# Diagrama de Classes — v1.1 (correção do Lab01S02)
 
-Versão original do diagrama de classes, produzida na Sprint 02. A versão corrigida (v1.1) está em [diagrama-classes-v1.1.md](diagrama-classes-v1.1.md) e a versão atual está no [README](../../README.md).
+Correção do diagrama v1 feita pela equipe na Sprint 02: inclusão de identificadores (`id`) e das classes `Matricula` e `AlunoMatricula`, que substituem a associação direta entre `Aluno` e `Disciplina`. A versão atual está no [README](../../README.md).
 
 ```mermaid
 classDiagram
@@ -12,6 +12,7 @@ classDiagram
     }
     
     class Aluno {
+        -id: Long
         -nome: String
         -matricula: String
         +matricular(Disciplina, isOptativa): boolean
@@ -44,6 +45,7 @@ classDiagram
     }
     
     class Disciplina {
+        -id: Long
         -nome: String
         -limiteAlunos: int = 60
         -minAlunos: int = 3
@@ -58,6 +60,22 @@ classDiagram
         +adicionarDisciplina(Disciplina)
     }
     
+    class Matricula {
+        -id: Long
+        -codigoMatricula: String
+        -dataCriacao: Date
+        -status: String
+    }
+
+    class AlunoMatricula {
+        -alunoId: Long
+        -matriculaId: Long
+        -disciplinaId: Long
+        -dataVinculo: Date
+        -isOptativa: boolean
+        -status: String
+    }
+    
     class SistemaCobrancaService {
         +notificarCobranca(Aluno, List~Disciplina~)
     }
@@ -65,6 +83,10 @@ classDiagram
     Curso "1" *-- "0..*" Disciplina : contem
     Curriculo "1" o-- "0..*" Disciplina : oferece
     Disciplina "0..*" -- "1" Professor : ministrada por
-    Disciplina "0..*" o-- "0..60" Aluno : alunosMatriculados
+    
+    Aluno "1" <-- "0..*" AlunoMatricula : alunoId
+    Matricula "1" <-- "0..*" AlunoMatricula : matriculaId
+    Disciplina "1" <-- "0..*" AlunoMatricula : disciplinaId
+    
     SistemaCobrancaService ..> Aluno : notifica
 ```
