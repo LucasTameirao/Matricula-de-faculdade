@@ -11,12 +11,18 @@ import java.util.List;
  * Agrega todos os dados mantidos pela secretaria. É o objeto persistido em arquivo.
  */
 public class Universidade implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private final List<Usuario> usuarios = new ArrayList<>();
     private final List<Curso> cursos = new ArrayList<>();
     private final List<Disciplina> disciplinas = new ArrayList<>();
     private Curriculo curriculoAtual;
+    private long ultimoId;
+
+    /** Gera identificadores sequenciais para alunos, disciplinas e matrículas. */
+    public Long gerarId() {
+        return ++ultimoId;
+    }
 
     // ---------- Usuários ----------
 
@@ -26,6 +32,9 @@ public class Universidade implements Serializable {
         }
         if (usuario instanceof Aluno aluno && buscarAluno(aluno.getMatricula()) != null) {
             throw new RegraNegocioException("Já existe um aluno com a matrícula '" + aluno.getMatricula() + "'.");
+        }
+        if (usuario instanceof Aluno aluno && aluno.getId() == null) {
+            aluno.setId(gerarId());
         }
         usuarios.add(usuario);
     }
@@ -78,6 +87,9 @@ public class Universidade implements Serializable {
     public void adicionarDisciplina(Disciplina disciplina) {
         if (buscarDisciplina(disciplina.getCodigo()) != null) {
             throw new RegraNegocioException("Já existe uma disciplina com o código '" + disciplina.getCodigo() + "'.");
+        }
+        if (disciplina.getId() == null) {
+            disciplina.setId(gerarId());
         }
         disciplinas.add(disciplina);
     }

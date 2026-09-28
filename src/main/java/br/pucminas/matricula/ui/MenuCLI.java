@@ -4,12 +4,15 @@ import br.pucminas.matricula.exceptions.RegraNegocioException;
 import br.pucminas.matricula.models.Aluno;
 import br.pucminas.matricula.models.Curriculo;
 import br.pucminas.matricula.models.Curso;
+import br.pucminas.matricula.models.AlunoMatricula;
 import br.pucminas.matricula.models.Disciplina;
+import br.pucminas.matricula.models.Matricula;
 import br.pucminas.matricula.models.Professor;
 import br.pucminas.matricula.models.Secretaria;
 import br.pucminas.matricula.models.Usuario;
 import br.pucminas.matricula.services.SistemaMatriculas;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -19,6 +22,7 @@ import java.util.Scanner;
  */
 public class MenuCLI {
     private static final String FORMATO_DISCIPLINA = "%-7s %-34s %-16s %-10s %s%n";
+    private static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     private final SistemaMatriculas sistema;
     private final Scanner scanner = new Scanner(System.in);
@@ -76,7 +80,8 @@ public class MenuCLI {
             System.out.println("2 - Matricular em disciplina obrigatória (1ª opção)");
             System.out.println("3 - Matricular em disciplina optativa (alternativa)");
             System.out.println("4 - Cancelar matrícula");
-            System.out.println("5 - Minhas matrículas");
+            System.out.println("5 - Minha matrícula do semestre");
+            System.out.println("6 - Histórico de matrículas");
             System.out.println("0 - Sair");
             switch (lerTexto("Opção: ")) {
                 case "1" -> listarDisciplinas(sistema.getDisciplinasOfertadas());
@@ -84,11 +89,12 @@ public class MenuCLI {
                 case "3" -> matricular(aluno, true);
                 case "4" -> executar(() -> {
                     listarMatriculas(aluno);
-                    if (aluno.consultarDisciplinas().isEmpty()) return;
+                    if (aluno.consultarDisciplinas(sistema.getSemestreAtual()).isEmpty()) return;
                     sistema.cancelarMatricula(aluno, lerTexto("Código da disciplina a cancelar: "));
                     sucesso("Matrícula cancelada. Sistema de cobranças notificado.");
                 });
                 case "5" -> listarMatriculas(aluno);
+                case "6" -> listarHistorico(aluno);
                 case "0" -> { return; }
                 default -> opcaoInvalida();
             }
@@ -104,18 +110,43 @@ public class MenuCLI {
     }
 
     private void listarMatriculas(Aluno aluno) {
-        System.out.printf("%nObrigatórias: %d/%d | Optativas: %d/%d%n",
-                aluno.getDisciplinasObrigatorias().size(), Aluno.MAX_OBRIGATORIAS,
-                aluno.getDisciplinasOptativas().size(), Aluno.MAX_OPTATIVAS);
-        List<Disciplina> disciplinas = aluno.consultarDisciplinas();
-        if (disciplinas.isEmpty()) {
+        String semestre = sistema.getSemestreAtual();
+        Matricula matricula = semestre == null ? null : aluno.getMatricula(semestre);
+        if (matricula == null) {
+            System.out.println("\nVocê ainda não possui matrícula no semestre atual.");
+            return;
+        }
+        System.out.printf("%nMatrícula %s (criada em %s) - %s%n", matricula.getCodigoMatricula(),
+                matricula.getDataCriacao().format(FORMATO_DATA), matricula.getStatus().getDescricao());
+        System.out.printf("Obrigatórias: %d/%d | Optativas: %d/%d%n",
+                matricula.contarObrigatorias(), Matricula.MAX_OBRIGATORIAS,
+                matricula.contarOptativas(), Matricula.MAX_OPTATIVAS);
+        List<AlunoMatricula> itens = matricula.getItensAtivos();
+        if (itens.isEmpty()) {
             System.out.println("Você não está matriculado(a) em nenhuma disciplina.");
             return;
         }
-        System.out.printf("%-7s %-34s %-12s %s%n", "Código", "Disciplina", "Tipo", "Situação");
-        for (Disciplina d : disciplinas) {
-            System.out.printf("%-7s %-34s %-12s %s%n", d.getCodigo(), d.getNome(),
-                    aluno.isOptativa(d) ? "Optativa" : "Obrigatória", d.getSituacao());
+        System.out.printf("%-7s %-34s %-12s %-17s %s%n", "Código", "Disciplina", "Tipo", "Vinculado em", "Situação");
+        for (AlunoMatricula item : itens) {
+            Disciplina d = item.getDisciplina();
+            System.out.printf("%-7s %-34s %-12s %-17s %s%n", d.getCodigo(), d.getNome(),
+                    item.isOptativa() ? "Optativa" : "Obrigatória",
+                    item.getDataVinculo().format(FORMATO_DATA), d.getSituacao());
+        }
+    }
+
+    private void listarHistorico(Aluno aluno) {
+        if (aluno.getMatriculas().isEmpty()) {
+            System.out.println("\nNenhuma matrícula registrada.");
+            return;
+        }
+        for (Matricula m : aluno.getMatriculas()) {
+            System.out.printf("%nMatrícula %s - %s%n", m.getCodigoMatricula(), m.getStatus().getDescricao());
+            for (AlunoMatricula item : m.getItens()) {
+                System.out.printf("  %-7s %-34s %-12s %s%n", item.getDisciplina().getCodigo(),
+                        item.getDisciplina().getNome(), item.isOptativa() ? "Optativa" : "Obrigatória",
+                        item.getStatus().getDescricao());
+            }
         }
     }
 
@@ -371,10 +402,10 @@ public class MenuCLI {
             System.out.println("Nenhum aluno cadastrado.");
             return;
         }
-        System.out.printf("%n%-10s %-25s %-12s %-26s %s%n", "Matrícula", "Nome", "Login", "Curso", "Matrículas");
+        System.out.printf("%n%-10s %-25s %-12s %-26s %s%n", "Matrícula", "Nome", "Login", "Curso", "Disciplinas no semestre");
         for (Aluno a : sistema.getAlunos()) {
             System.out.printf("%-10s %-25s %-12s %-26s %d%n", a.getMatricula(), a.getNome(), a.getLogin(),
-                    a.getCurso().getNome(), a.consultarDisciplinas().size());
+                    a.getCurso().getNome(), a.consultarDisciplinas(sistema.getSemestreAtual()).size());
         }
     }
 

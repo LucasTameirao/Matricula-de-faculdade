@@ -5,6 +5,7 @@ import br.pucminas.matricula.models.Aluno;
 import br.pucminas.matricula.models.Curriculo;
 import br.pucminas.matricula.models.Curso;
 import br.pucminas.matricula.models.Disciplina;
+import br.pucminas.matricula.models.Matricula;
 import br.pucminas.matricula.models.Professor;
 import br.pucminas.matricula.models.Secretaria;
 import br.pucminas.matricula.models.Universidade;
@@ -47,6 +48,11 @@ public class SistemaMatriculas {
         return universidade.getCurriculoAtual();
     }
 
+    public String getSemestreAtual() {
+        Curriculo curriculo = universidade.getCurriculoAtual();
+        return curriculo == null ? null : curriculo.getSemestre();
+    }
+
     public List<Disciplina> getDisciplinasOfertadas() {
         Curriculo curriculo = universidade.getCurriculoAtual();
         return curriculo == null ? List.of() : curriculo.getDisciplinas();
@@ -58,15 +64,21 @@ public class SistemaMatriculas {
         if (!curriculo.contemDisciplina(disciplina)) {
             throw new RegraNegocioException(disciplina.getNome() + " não é ofertada no semestre " + curriculo.getSemestre() + ".");
         }
-        aluno.matricular(disciplina, isOptativa);
-        cobranca.notificarCobranca(aluno, aluno.consultarDisciplinas(), curriculo.getSemestre());
+        String semestre = curriculo.getSemestre();
+        Matricula matricula = aluno.getMatricula(semestre);
+        if (matricula == null) {
+            matricula = aluno.iniciarMatricula(universidade.gerarId(), semestre);
+        }
+        aluno.matricular(semestre, disciplina, isOptativa);
+        cobranca.notificarCobranca(matricula);
         salvar();
     }
 
     public void cancelarMatricula(Aluno aluno, String codigoDisciplina) {
         Curriculo curriculo = exigirPeriodoAberto();
-        aluno.cancelarMatricula(exigirDisciplina(codigoDisciplina));
-        cobranca.notificarCobranca(aluno, aluno.consultarDisciplinas(), curriculo.getSemestre());
+        String semestre = curriculo.getSemestre();
+        aluno.cancelarMatricula(semestre, exigirDisciplina(codigoDisciplina));
+        cobranca.notificarCobranca(aluno.getMatricula(semestre));
         salvar();
     }
 
@@ -147,9 +159,7 @@ public class SistemaMatriculas {
         if (aluno == null) {
             throw new RegraNegocioException("Aluno com matrícula '" + matricula + "' não encontrado.");
         }
-        for (Disciplina disciplina : aluno.consultarDisciplinas()) {
-            aluno.cancelarMatricula(disciplina);
-        }
+        aluno.cancelarTodasMatriculas();
         universidade.removerUsuario(aluno);
         salvar();
     }
@@ -181,7 +191,7 @@ public class SistemaMatriculas {
 
     public void removerDisciplina(String codigo) {
         Disciplina disciplina = exigirDisciplina(codigo);
-        if (!disciplina.getAlunosMatriculados().isEmpty()) {
+        if (!disciplina.getInscricoes().isEmpty()) {
             throw new RegraNegocioException("A disciplina possui alunos matriculados e não pode ser removida.");
         }
         Curriculo curriculo = universidade.getCurriculoAtual();
@@ -202,6 +212,11 @@ public class SistemaMatriculas {
         if (atual != null && atual.isPeriodoMatriculasAberto()) {
             throw new RegraNegocioException("Encerre o período de matrículas atual antes de gerar um novo currículo.");
         }
+        boolean semestreJaUsado = (atual != null && atual.getSemestre().equals(semestre.trim()))
+                || universidade.getAlunos().stream().anyMatch(a -> a.getMatricula(semestre.trim()) != null);
+        if (semestreJaUsado) {
+            throw new RegraNegocioException("Já existe currículo/matrículas para o semestre " + semestre.trim() + ".");
+        }
         List<Disciplina> ofertadas = new ArrayList<>();
         for (String codigo : codigosDisciplinas) {
             Disciplina disciplina = exigirDisciplina(codigo);
@@ -212,8 +227,7 @@ public class SistemaMatriculas {
         if (ofertadas.isEmpty()) {
             throw new RegraNegocioException("Informe ao menos uma disciplina para o currículo.");
         }
-        // Novo semestre: as matrículas do semestre anterior deixam de valer.
-        universidade.getAlunos().forEach(Aluno::limparMatriculas);
+        // Novo semestre: as disciplinas começam sem inscritos (o histórico fica nas matrículas dos alunos).
         universidade.getDisciplinas().forEach(Disciplina::retirarDeOferta);
 
         Curriculo curriculo = secretaria.gerarCurriculo(semestre.trim(), ofertadas);
@@ -230,6 +244,12 @@ public class SistemaMatriculas {
     public Curriculo encerrarPeriodoMatriculas(Secretaria secretaria) {
         Curriculo curriculo = exigirCurriculo();
         secretaria.encerrarPeriodoMatriculas(curriculo);
+        for (Aluno aluno : universidade.getAlunos()) {
+            Matricula matricula = aluno.getMatricula(curriculo.getSemestre());
+            if (matricula != null) {
+                matricula.concluir();
+            }
+        }
         salvar();
         return curriculo;
     }
