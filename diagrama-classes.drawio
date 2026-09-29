@@ -1,0 +1,156 @@
+<mxfile host="app.diagrams.net" agent="Sistema de Matriculas - PUC Minas" type="device">
+  <diagram id="diagrama-classes-sprint3" name="Diagrama de Classes - Lab01S03">
+    <mxGraphModel dx="1600" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Título -->
+        <mxCell id="titulo" value="Sistema de Matrículas — Diagrama de Classes (Lab01S03 / Sprint 03)" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;fillColor=none;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="250" y="20" width="800" height="40" as="geometry" />
+        </mxCell>
+        <!-- Classes -->
+        <mxCell id="Usuario" value="&lt;p style=&quot;margin:0;font-size:11px;font-style:italic;color:#666666;text-align:center;&quot;&gt;&amp;laquo;abstract&amp;raquo;&lt;/p&gt;&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;Usuario&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;#&amp;nbsp;login:&amp;nbsp;String&lt;br/&gt;#&amp;nbsp;senha:&amp;nbsp;String&lt;br/&gt;#&amp;nbsp;nome:&amp;nbsp;String&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;+&amp;nbsp;autenticar(login,&amp;nbsp;senha):&amp;nbsp;boolean&lt;br/&gt;+&amp;nbsp;getTipo():&amp;nbsp;String*&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#f8f9fa;strokeColor=#2b3e50;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="440" y="100" width="250" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="Aluno" value="&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;Aluno&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;-&amp;nbsp;id:&amp;nbsp;Long&lt;br/&gt;-&amp;nbsp;matricula:&amp;nbsp;String&lt;br/&gt;-&amp;nbsp;curso:&amp;nbsp;Curso&lt;br/&gt;-&amp;nbsp;matriculas:&amp;nbsp;List&lt;Matricula&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;+&amp;nbsp;iniciarMatricula(id,&amp;nbsp;sem):&amp;nbsp;Matricula&lt;br/&gt;+&amp;nbsp;matricular(sem,&amp;nbsp;Disc,&amp;nbsp;isOpt)&lt;br/&gt;+&amp;nbsp;cancelarMatricula(sem,&amp;nbsp;Disc)&lt;br/&gt;+&amp;nbsp;consultarDisciplinas(sem):&amp;nbsp;List&lt;Disc&gt;&lt;br/&gt;+&amp;nbsp;getMatricula(sem):&amp;nbsp;Matricula&lt;br/&gt;+&amp;nbsp;cancelarTodasMatriculas()&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#ffffff;strokeColor=#2b3e50;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="310" width="270" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="Professor" value="&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;Professor&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;-&amp;nbsp;disciplinasMinistradas:&amp;nbsp;List&lt;Disciplina&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;+&amp;nbsp;consultarAlunos(Disc):&amp;nbsp;List&lt;Aluno&gt;&lt;br/&gt;+&amp;nbsp;consultarDisciplinas():&amp;nbsp;List&lt;Disc&gt;&lt;br/&gt;+&amp;nbsp;adicionarDisciplina(Disc)&lt;br/&gt;+&amp;nbsp;removerDisciplina(Disc)&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#ffffff;strokeColor=#2b3e50;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="440" y="310" width="250" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="Secretaria" value="&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;Secretaria&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;+&amp;nbsp;gerarCurriculo(sem,&amp;nbsp;Disc[]):&amp;nbsp;Curriculo&lt;br/&gt;+&amp;nbsp;abrirPeriodoMatriculas(Curriculo)&lt;br/&gt;+&amp;nbsp;encerrarPeriodoMatriculas(Curriculo)&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#ffffff;strokeColor=#2b3e50;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="730" y="310" width="260" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="Matricula" value="&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;Matricula&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;+&amp;nbsp;MAX_OBRIGATORIAS:&amp;nbsp;int&amp;nbsp;=&amp;nbsp;4&lt;br/&gt;+&amp;nbsp;MAX_OPTATIVAS:&amp;nbsp;int&amp;nbsp;=&amp;nbsp;2&lt;br/&gt;-&amp;nbsp;id:&amp;nbsp;Long&lt;br/&gt;-&amp;nbsp;codigoMatricula:&amp;nbsp;String&lt;br/&gt;-&amp;nbsp;dataCriacao:&amp;nbsp;LocalDateTime&lt;br/&gt;-&amp;nbsp;status:&amp;nbsp;StatusMatricula&lt;br/&gt;-&amp;nbsp;semestre:&amp;nbsp;String&lt;br/&gt;-&amp;nbsp;aluno:&amp;nbsp;Aluno&lt;br/&gt;-&amp;nbsp;itens:&amp;nbsp;List&lt;AlunoMatricula&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;+&amp;nbsp;adicionarDisciplina(Disc,&amp;nbsp;isOpt):&amp;nbsp;Item&lt;br/&gt;+&amp;nbsp;cancelarDisciplina(Disc)&lt;br/&gt;+&amp;nbsp;cancelarTodas()&lt;br/&gt;+&amp;nbsp;concluir()&lt;br/&gt;+&amp;nbsp;getDisciplinas():&amp;nbsp;List&lt;Disc&gt;&lt;br/&gt;+&amp;nbsp;contarObrigatorias():&amp;nbsp;int&lt;br/&gt;+&amp;nbsp;contarOptativas():&amp;nbsp;int&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#ffffff;strokeColor=#2b3e50;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="600" width="270" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="AlunoMatricula" value="&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;AlunoMatricula&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;-&amp;nbsp;aluno:&amp;nbsp;Aluno&lt;br/&gt;-&amp;nbsp;matricula:&amp;nbsp;Matricula&lt;br/&gt;-&amp;nbsp;disciplina:&amp;nbsp;Disciplina&lt;br/&gt;-&amp;nbsp;dataVinculo:&amp;nbsp;LocalDateTime&lt;br/&gt;-&amp;nbsp;optativa:&amp;nbsp;boolean&lt;br/&gt;-&amp;nbsp;status:&amp;nbsp;StatusVinculo&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;+&amp;nbsp;cancelar()&lt;br/&gt;+&amp;nbsp;isAtivo():&amp;nbsp;boolean&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#ffffff;strokeColor=#2b3e50;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="930" width="270" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="StatusMatricula" value="&lt;p style=&quot;margin:0;font-size:11px;font-style:italic;color:#666666;text-align:center;&quot;&gt;&amp;laquo;enumeration&amp;raquo;&lt;/p&gt;&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;StatusMatricula&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;EM_ANDAMENTO&lt;br/&gt;CONCLUIDA&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#f1f8e9;strokeColor=#558b2f;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="410" y="600" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="StatusVinculo" value="&lt;p style=&quot;margin:0;font-size:11px;font-style:italic;color:#666666;text-align:center;&quot;&gt;&amp;laquo;enumeration&amp;raquo;&lt;/p&gt;&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;StatusVinculo&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;ATIVO&lt;br/&gt;CANCELADO&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#f1f8e9;strokeColor=#558b2f;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="410" y="930" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Curso" value="&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;Curso&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;-&amp;nbsp;nome:&amp;nbsp;String&lt;br/&gt;-&amp;nbsp;numeroCreditos:&amp;nbsp;int&lt;br/&gt;-&amp;nbsp;disciplinas:&amp;nbsp;List&lt;Disciplina&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;+&amp;nbsp;adicionarDisciplina(Disc)&lt;br/&gt;+&amp;nbsp;removerDisciplina(Disc)&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#ffffff;strokeColor=#2b3e50;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="600" y="520" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Curriculo" value="&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;Curriculo&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;-&amp;nbsp;semestre:&amp;nbsp;String&lt;br/&gt;-&amp;nbsp;disciplinas:&amp;nbsp;List&lt;Disciplina&gt;&lt;br/&gt;-&amp;nbsp;periodoMatriculasAberto:&amp;nbsp;boolean&lt;br/&gt;-&amp;nbsp;periodoMatriculasEncerrado:&amp;nbsp;boolean&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;+&amp;nbsp;adicionarDisciplina(Disc)&lt;br/&gt;+&amp;nbsp;removerDisciplina(Disc)&lt;br/&gt;+&amp;nbsp;abrirPeriodoMatriculas()&lt;br/&gt;+&amp;nbsp;encerrarPeriodoMatriculas()&lt;br/&gt;+&amp;nbsp;contemDisciplina(Disc):&amp;nbsp;boolean&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#ffffff;strokeColor=#2b3e50;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="860" y="520" width="250" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Disciplina" value="&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;Disciplina&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;+&amp;nbsp;LIMITE_ALUNOS:&amp;nbsp;int&amp;nbsp;=&amp;nbsp;60&lt;br/&gt;+&amp;nbsp;MIN_ALUNOS:&amp;nbsp;int&amp;nbsp;=&amp;nbsp;3&lt;br/&gt;-&amp;nbsp;id:&amp;nbsp;Long&lt;br/&gt;-&amp;nbsp;codigo:&amp;nbsp;String&lt;br/&gt;-&amp;nbsp;nome:&amp;nbsp;String&lt;br/&gt;-&amp;nbsp;curso:&amp;nbsp;Curso&lt;br/&gt;-&amp;nbsp;professor:&amp;nbsp;Professor&lt;br/&gt;-&amp;nbsp;inscricoes:&amp;nbsp;List&lt;AlunoMatricula&gt;&lt;br/&gt;-&amp;nbsp;status:&amp;nbsp;StatusDisciplina&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;+&amp;nbsp;adicionarInscricao(AlunoMatricula)&lt;br/&gt;+&amp;nbsp;removerInscricao(AlunoMatricula):&amp;nbsp;boolean&lt;br/&gt;+&amp;nbsp;getAlunosMatriculados():&amp;nbsp;List&lt;Aluno&gt;&lt;br/&gt;+&amp;nbsp;verificarStatus()&lt;br/&gt;+&amp;nbsp;ofertar()&lt;br/&gt;+&amp;nbsp;reiniciar()&lt;br/&gt;+&amp;nbsp;retirarDeOferta()&lt;br/&gt;+&amp;nbsp;isLotada():&amp;nbsp;boolean&lt;br/&gt;+&amp;nbsp;isInscricoesAbertas():&amp;nbsp;boolean&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#ffffff;strokeColor=#2b3e50;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="580" y="730" width="290" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="StatusDisciplina" value="&lt;p style=&quot;margin:0;font-size:11px;font-style:italic;color:#666666;text-align:center;&quot;&gt;&amp;laquo;enumeration&amp;raquo;&lt;/p&gt;&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;StatusDisciplina&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;NAO_OFERTADA&lt;br/&gt;AGUARDANDO_PERIODO&lt;br/&gt;EM_MATRICULA&lt;br/&gt;ATIVA&lt;br/&gt;CANCELADA&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#f1f8e9;strokeColor=#558b2f;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="910" y="770" width="180" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="Universidade" value="&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;Universidade&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;-&amp;nbsp;ultimoId:&amp;nbsp;long&lt;br/&gt;-&amp;nbsp;usuarios:&amp;nbsp;List&lt;Usuario&gt;&lt;br/&gt;-&amp;nbsp;cursos:&amp;nbsp;List&lt;Curso&gt;&lt;br/&gt;-&amp;nbsp;disciplinas:&amp;nbsp;List&lt;Disciplina&gt;&lt;br/&gt;-&amp;nbsp;curriculoAtual:&amp;nbsp;Curriculo&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;+&amp;nbsp;gerarId():&amp;nbsp;Long&lt;br/&gt;+&amp;nbsp;adicionarUsuario(Usuario)&lt;br/&gt;+&amp;nbsp;buscarUsuario(login):&amp;nbsp;Usuario&lt;br/&gt;+&amp;nbsp;buscarAluno(matricula):&amp;nbsp;Aluno&lt;br/&gt;+&amp;nbsp;buscarDisciplina(cod):&amp;nbsp;Disciplina&lt;br/&gt;+&amp;nbsp;buscarCurso(nome):&amp;nbsp;Curso&lt;br/&gt;+&amp;nbsp;getCurriculoAtual():&amp;nbsp;Curriculo&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#fcfcfc;strokeColor=#37474f;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="140" width="260" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="SistemaMatriculas" value="&lt;p style=&quot;margin:0;font-size:11px;font-style:italic;color:#666666;text-align:center;&quot;&gt;&amp;laquo;facade&amp;raquo;&lt;/p&gt;&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;SistemaMatriculas&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;-&amp;nbsp;universidade:&amp;nbsp;Universidade&lt;br/&gt;-&amp;nbsp;persistencia:&amp;nbsp;ArquivoPersistencia&lt;br/&gt;-&amp;nbsp;cobranca:&amp;nbsp;SistemaCobrancaService&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;+&amp;nbsp;login(login,&amp;nbsp;senha):&amp;nbsp;Usuario&lt;br/&gt;+&amp;nbsp;matricular(Aluno,&amp;nbsp;cod,&amp;nbsp;isOpt)&lt;br/&gt;+&amp;nbsp;cancelarMatricula(Aluno,&amp;nbsp;cod)&lt;br/&gt;+&amp;nbsp;consultarAlunos(Prof,&amp;nbsp;cod)&lt;br/&gt;+&amp;nbsp;cadastrarCurso(nome,&amp;nbsp;cred)&lt;br/&gt;+&amp;nbsp;cadastrarDisciplina(cod,&amp;nbsp;nome,&amp;nbsp;cur,&amp;nbsp;prof)&lt;br/&gt;+&amp;nbsp;cadastrarProfessor(log,&amp;nbsp;sen,&amp;nbsp;nom)&lt;br/&gt;+&amp;nbsp;cadastrarAluno(log,&amp;nbsp;sen,&amp;nbsp;nom,&amp;nbsp;mat,&amp;nbsp;cur)&lt;br/&gt;+&amp;nbsp;gerarCurriculo(Sec,&amp;nbsp;sem,&amp;nbsp;cods)&lt;br/&gt;+&amp;nbsp;abrirPeriodoMatriculas(Sec)&lt;br/&gt;+&amp;nbsp;encerrarPeriodoMatriculas(Sec)&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#fcfcfc;strokeColor=#37474f;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="400" width="310" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="SistemaCobrancaService" value="&lt;p style=&quot;margin:0;font-size:11px;font-style:italic;color:#666666;text-align:center;&quot;&gt;&amp;laquo;service&amp;raquo;&lt;/p&gt;&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;SistemaCobrancaService&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;-&amp;nbsp;arquivoNotificacoes:&amp;nbsp;Path&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;+&amp;nbsp;notificarCobranca(Matricula)&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#fcfcfc;strokeColor=#37474f;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="720" width="250" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ArquivoPersistencia" value="&lt;p style=&quot;margin:0;font-size:11px;font-style:italic;color:#666666;text-align:center;&quot;&gt;&amp;laquo;persistence&amp;raquo;&lt;/p&gt;&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;ArquivoPersistencia&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;-&amp;nbsp;pasta:&amp;nbsp;Path&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;+&amp;nbsp;carregar():&amp;nbsp;Universidade&lt;br/&gt;+&amp;nbsp;salvar(Universidade)&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#fcfcfc;strokeColor=#37474f;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="850" width="250" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="MenuCLI" value="&lt;p style=&quot;margin:0;font-size:11px;font-style:italic;color:#666666;text-align:center;&quot;&gt;&amp;laquo;UI&amp;raquo;&lt;/p&gt;&lt;p style=&quot;margin:0;font-size:13px;font-weight:bold;text-align:center;&quot;&gt;MenuCLI&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;-&amp;nbsp;sistema:&amp;nbsp;SistemaMatriculas&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border:none;border-top:1px solid #cccccc;margin:4px 0;&quot;/&gt;&lt;p style=&quot;margin:0;font-size:11px;text-align:left;line-height:1.3;&quot;&gt;+&amp;nbsp;iniciar()&lt;/p&gt;" style="html=1;whiteSpace=wrap;shape=rect;fillColor=#fcfcfc;strokeColor=#37474f;strokeWidth=1.5;verticalAlign=top;align=left;spacing=6;rounded=1;shadow=0;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="30" width="200" height="80" as="geometry" />
+        </mxCell>
+        <!-- Relacionamentos -->
+        <mxCell id="gen_aluno" value="" style="endArrow=block;endFill=0;strokeWidth=1.5;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2b3e50;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.1;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="Aluno" target="Usuario">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="235" y="270" />
+              <mxPoint x="465" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gen_prof" value="" style="endArrow=block;endFill=0;strokeWidth=1.5;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2b3e50;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="Professor" target="Usuario">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gen_sec" value="" style="endArrow=block;endFill=0;strokeWidth=1.5;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2b3e50;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.9;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="Secretaria" target="Usuario">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="270" />
+              <mxPoint x="665" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="assoc_aluno_curso" value="cursa 1" style="endArrow=open;strokeWidth=1.2;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2b3e50;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="Aluno" target="Curso">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="comp_aluno_mat" value="1    0..*" style="startArrow=diamondThin;startFill=1;endArrow=none;strokeWidth=1.5;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2b3e50;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Aluno" target="Matricula">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="comp_mat_item" value="1    0..*" style="startArrow=diamondThin;startFill=1;endArrow=none;strokeWidth=1.5;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2b3e50;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Matricula" target="AlunoMatricula">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="assoc_item_disc" value="disciplina 1" style="endArrow=open;strokeWidth=1.2;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2b3e50;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.8;entryDx=0;entryDy=0;" edge="1" parent="1" source="AlunoMatricula" target="Disciplina">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="agg_disc_item" value="0..60" style="startArrow=diamondThin;startFill=0;endArrow=none;strokeWidth=1.5;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2b3e50;exitX=0;exitY=0.6;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="Disciplina" target="AlunoMatricula">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="assoc_mat_status" value="" style="endArrow=open;dashed=1;strokeWidth=1.2;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#555555;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Matricula" target="StatusMatricula">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="assoc_item_status" value="" style="endArrow=open;dashed=1;strokeWidth=1.2;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#555555;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="AlunoMatricula" target="StatusVinculo">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="assoc_disc_status" value="" style="endArrow=open;dashed=1;strokeWidth=1.2;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#555555;exitX=1;exitY=0.4;exitDx=0;exitDy=0;entryX=0;entryY=0.4;entryDx=0;entryDy=0;" edge="1" parent="1" source="Disciplina" target="StatusDisciplina">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="agg_curso_disc" value="1    0..*" style="startArrow=diamondThin;startFill=0;endArrow=none;strokeWidth=1.5;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2b3e50;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.4;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Curso" target="Disciplina">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="agg_curr_disc" value="1    1..*" style="startArrow=diamondThin;startFill=0;endArrow=none;strokeWidth=1.5;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2b3e50;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.8;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Curriculo" target="Disciplina">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="assoc_disc_prof" value="ministrada por 1" style="endArrow=open;strokeWidth=1.2;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2b3e50;exitX=0.3;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="Disciplina" target="Professor">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep_menu_sis" value="" style="endArrow=open;strokeWidth=1.2;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2b3e50;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="MenuCLI" target="SistemaMatriculas">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep_sis_uni" value="" style="endArrow=open;strokeWidth=1.2;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2b3e50;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="SistemaMatriculas" target="Universidade">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep_sis_cobr" value="notifica" style="endArrow=open;strokeWidth=1.2;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2b3e50;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SistemaMatriculas" target="SistemaCobrancaService">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep_sis_pers" value="salva" style="endArrow=open;strokeWidth=1.2;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#2b3e50;exitX=0.8;exitY=1;exitDx=0;exitDy=0;entryX=0.8;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SistemaMatriculas" target="ArquivoPersistencia">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep_cobr_mat" value="notifica cobranca" style="endArrow=open;dashed=1;strokeWidth=1.2;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#555555;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.7;entryDx=0;entryDy=0;" edge="1" parent="1" source="SistemaCobrancaService" target="Matricula">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="900" y="765" />
+              <mxPoint x="900" y="775" />
+              <mxPoint x="370" y="775" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

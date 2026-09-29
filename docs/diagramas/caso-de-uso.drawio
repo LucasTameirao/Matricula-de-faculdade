@@ -1,0 +1,180 @@
+<mxfile host="app.diagrams.net" agent="Sistema de Matriculas - PUC Minas" type="device">
+  <diagram id="casos-de-uso-matriculas" name="Casos de Uso">
+    <mxGraphModel dx="1200" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ================= TÍTULO ================= -->
+        <mxCell id="titulo" value="Sistema de Matrículas — Diagrama de Casos de Uso (Sprint 01)" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="-60" width="720" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ================= FRONTEIRA DO SISTEMA ================= -->
+        <mxCell id="sistema" value="Sistema de Matrículas" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=14;fontStyle=1;fillColor=none;strokeColor=#444444;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="360" y="20" width="560" height="1080" as="geometry" />
+        </mxCell>
+
+        <!-- ================= ATORES ================= -->
+        <mxCell id="ator_usuario" value="Usuário" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="40" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ator_aluno" value="Aluno" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="200" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ator_professor" value="Professor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="520" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ator_secretaria" value="Secretaria" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="780" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ator_cobranca" value="Sistema de Cobranças" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="250" width="30" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ================= CASOS DE USO ================= -->
+        <mxCell id="uc01" value="UC01&#10;Autenticar Usuário" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEFEFE;strokeColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="420" y="40" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc02" value="UC02&#10;Consultar Disciplinas Disponíveis" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEFEFE;strokeColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="420" y="150" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc03" value="UC03&#10;Realizar Matrícula" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEFEFE;strokeColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="420" y="240" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc04" value="UC04&#10;Cancelar Matrícula" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEFEFE;strokeColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="420" y="330" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc05" value="UC05&#10;Consultar Minhas Matrículas" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEFEFE;strokeColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="420" y="420" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc06" value="UC06&#10;Consultar Disciplinas Ministradas" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEFEFE;strokeColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="420" y="540" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc07" value="UC07&#10;Consultar Alunos Matriculados" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEFEFE;strokeColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="420" y="630" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc08" value="UC08&#10;Manter Curso" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEFEFE;strokeColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="420" y="760" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc09" value="UC09&#10;Manter Disciplina" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEFEFE;strokeColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="420" y="850" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc10" value="UC10&#10;Manter Professor" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEFEFE;strokeColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="420" y="940" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc11" value="UC11&#10;Manter Aluno" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEFEFE;strokeColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="420" y="1000" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc12" value="UC12&#10;Gerar Currículo do Semestre" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEFEFE;strokeColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="700" y="800" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc13" value="UC13&#10;Encerrar Período de Matrículas" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEFEFE;strokeColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="700" y="920" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="uc14" value="UC14&#10;Notificar Sistema de Cobranças" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEFEFE;strokeColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="700" y="245" width="170" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- ================= GENERALIZAÇÕES ================= -->
+        <mxCell id="gen_aluno" value="" style="endArrow=block;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="ator_aluno" target="ator_usuario">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gen_professor" value="" style="endArrow=block;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ator_professor" target="ator_usuario">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="25" y="550" />
+              <mxPoint x="25" y="70" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gen_secretaria" value="" style="endArrow=block;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ator_secretaria" target="ator_usuario">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="5" y="810" />
+              <mxPoint x="5" y="70" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ================= ASSOCIAÇÕES ================= -->
+        <mxCell id="as_usuario_uc01" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="ator_usuario" target="uc01">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="as_aluno_uc02" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="ator_aluno" target="uc02">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="as_aluno_uc03" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="ator_aluno" target="uc03">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="as_aluno_uc04" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="ator_aluno" target="uc04">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="as_aluno_uc05" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="ator_aluno" target="uc05">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="as_prof_uc06" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="ator_professor" target="uc06">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="as_prof_uc07" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="ator_professor" target="uc07">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="as_sec_uc08" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="ator_secretaria" target="uc08">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="as_sec_uc09" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="ator_secretaria" target="uc09">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="as_sec_uc10" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="ator_secretaria" target="uc10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="as_sec_uc11" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="ator_secretaria" target="uc11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="as_sec_uc12" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="ator_secretaria" target="uc12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="as_sec_uc13" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="ator_secretaria" target="uc13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="as_uc14_cobranca" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="uc14" target="ator_cobranca">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ================= INCLUDE / EXTEND ================= -->
+        <mxCell id="inc_uc03_uc14" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;verticalAlign=bottom;" edge="1" parent="1" source="uc03" target="uc14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="inc_uc13_uc14" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;verticalAlign=bottom;" edge="1" parent="1" source="uc13" target="uc14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="960" y="955" />
+              <mxPoint x="960" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ext_uc03_uc02" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;verticalAlign=bottom;" edge="1" parent="1" source="uc03" target="uc02">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="640" y="275" />
+              <mxPoint x="640" y="185" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ext_uc07_uc06" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;verticalAlign=bottom;" edge="1" parent="1" source="uc07" target="uc06">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="640" y="665" />
+              <mxPoint x="640" y="575" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

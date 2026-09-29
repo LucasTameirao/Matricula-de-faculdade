@@ -134,9 +134,13 @@ A modelagem do sistema será desenvolvida e atualizada ao longo das sprints.
 
 ![Diagrama de Caso de Uso](./caso-de-uso.drawio.png)
 
+> 📁 **Arquivo editável:** [caso-de-uso.drawio](./caso-de-uso.drawio) (ou [docs/diagramas/caso-de-uso.drawio](docs/diagramas/caso-de-uso.drawio)).
+
 ### Diagrama de Classes (v2 — Lab01S03)
 
 Versão atualizada na Sprint 03 para refletir a implementação. As versões anteriores estão em [docs/diagramas/diagrama-classes-v1.md](docs/diagramas/diagrama-classes-v1.md) (Lab01S02) e [docs/diagramas/diagrama-classes-v1.1.md](docs/diagramas/diagrama-classes-v1.1.md) (correção do Lab01S02).
+
+> 📁 **Arquivo editável:** [diagrama-classes.drawio](./diagrama-classes.drawio) (ou [docs/diagramas/diagrama-classes.drawio](docs/diagramas/diagrama-classes.drawio)).
 
 **Principais mudanças em relação à v1.1:**
 
@@ -454,6 +458,15 @@ javac --release 17 -encoding UTF-8 -d out --source-path src/main/java src/main/j
 java -cp out br.pucminas.matricula.Main
 ```
 
+### 🧪 Executando os testes automatizados
+
+O projeto inclui uma bateria de testes automatizados (`SistemaMatriculasTest`) que valida todas as regras de negócio exigidas pelo Product Owner (limite de 4 obrigatórias e 2 optativas, teto de 60 alunos, cancelamento com < 3 alunos ao encerrar o período, notificações de cobrança e persistência CSV):
+
+```bash
+javac --release 17 -encoding UTF-8 -d target/test-classes --source-path "src/main/java;src/test/java" src/test/java/br/pucminas/matricula/SistemaMatriculasTest.java
+java -cp "target/test-classes;target/classes" br.pucminas.matricula.SistemaMatriculasTest
+```
+
 Com Maven instalado, também é possível gerar um `.jar` executável: `mvn package` e depois `java -jar target/sistema-matriculas-1.0.jar`.
 
 📖 O passo a passo de uso de cada perfil está no **[Manual de Utilização](docs/manual-de-utilizacao.md)**.
@@ -526,9 +539,12 @@ Matricula-de-faculdade/
 ├── executar.sh
 ├── .vscode/
 │   └── launch.json
-├── caso-de-uso.drawio.png
+├── caso-de-uso.drawio          ← arquivo editável do diagrama de casos de uso
+├── caso-de-uso.drawio.png      ← imagem exportada dos casos de uso
+├── diagrama-classes.drawio     ← arquivo editável do diagrama de classes (v2)
 ├── dados/                      ← banco de dados CSV
 │   ├── alunos.csv
+│   ├── cobrancas.csv           ← notificações enviadas ao sistema de cobranças
 │   ├── cursos.csv
 │   ├── curriculo.csv
 │   ├── curriculo_disciplinas.csv
@@ -540,35 +556,40 @@ Matricula-de-faculdade/
 ├── docs/
 │   ├── manual-de-utilizacao.md
 │   └── diagramas/
+│       ├── caso-de-uso.drawio
+│       ├── diagrama-classes.drawio
 │       ├── diagrama-classes-v1.md
 │       └── diagrama-classes-v1.1.md
-└── src/main/java/br/pucminas/matricula/
-    ├── Main.java
-    ├── exceptions/
-    │   └── RegraNegocioException.java
-    ├── models/
-    │   ├── Aluno.java
-    │   ├── AlunoMatricula.java
-    │   ├── Curriculo.java
-    │   ├── Curso.java
-    │   ├── Disciplina.java
-    │   ├── Matricula.java
-    │   ├── Professor.java
-    │   ├── Secretaria.java
-    │   ├── StatusDisciplina.java
-    │   ├── StatusMatricula.java
-    │   ├── StatusVinculo.java
-    │   ├── Universidade.java
-    │   └── Usuario.java
-    ├── persistence/
-    │   ├── ArquivoPersistencia.java
-    │   ├── Csv.java
-    │   └── DadosIniciais.java
-    ├── services/
-    │   ├── SistemaCobrancaService.java
-    │   └── SistemaMatriculas.java
-    └── ui/
-        └── MenuCLI.java
+└── src/
+    ├── main/java/br/pucminas/matricula/
+    │   ├── Main.java
+    │   ├── exceptions/
+    │   │   └── RegraNegocioException.java
+    │   ├── models/
+    │   │   ├── Aluno.java
+    │   │   ├── AlunoMatricula.java
+    │   │   ├── Curriculo.java
+    │   │   ├── Curso.java
+    │   │   ├── Disciplina.java
+    │   │   ├── Matricula.java
+    │   │   ├── Professor.java
+    │   │   ├── Secretaria.java
+    │   │   ├── StatusDisciplina.java
+    │   │   ├── StatusMatricula.java
+    │   │   ├── StatusVinculo.java
+    │   │   ├── Universidade.java
+    │   │   └── Usuario.java
+    │   ├── persistence/
+    │   │   ├── ArquivoPersistencia.java
+    │   │   ├── Csv.java
+    │   │   └── DadosIniciais.java
+    │   ├── services/
+    │   │   ├── SistemaCobrancaService.java
+    │   │   └── SistemaMatriculas.java
+    │   └── ui/
+    │       └── MenuCLI.java
+    └── test/java/br/pucminas/matricula/
+        └── SistemaMatriculasTest.java  ← bateria de testes das regras de negócio
 ```
 
 ---
